@@ -30,8 +30,6 @@ public class DoggoBehaviour : MonoBehaviour
     NavMeshAgent agent;
     string internalState = "¯\\_(ツ)_/¯";
 
-    System.WeakReference<GameObject> currentTarget = null;
-
     void OnDrawGizmos() {
         Handles.Label(transform.TransformPoint(Vector3.up), internalState, SceneManager.Instance.dogHandlesStyle);
         
@@ -105,17 +103,15 @@ public class DoggoBehaviour : MonoBehaviour
         }
     }
 
+    System.WeakReference<ToyBehaviour> ImTouchingThisToy = null;
     private void OnCollisionEnter(Collision collision) {
         if (collision.collider.CompareTag("Toy")) {
-            // throw toy upwards at a random direction
             ToyBehaviour toy = collision.collider.GetComponent<ToyBehaviour>();
             if (toy) {
-                toy.ShootUpRandomDirection();
+                ImTouchingThisToy = new System.WeakReference<ToyBehaviour>(toy);
             }
         }
     }
-
-
 
     void Update()
     {
@@ -147,6 +143,8 @@ public class DoggoBehaviour : MonoBehaviour
                     // yum yum ლ(´ڡ`ლ)
                     internalState = "ლ(´ڡ`ლ)";
                     EatFood(imTouchingThisFood);
+                    IWantThisFood = null;
+                    ImTouchingThisFood = null;
                 }
                 else {
                     // go walk towards food ԅ(♡﹃♡ԅ)
@@ -155,7 +153,7 @@ public class DoggoBehaviour : MonoBehaviour
                 }
             }
             else {
-                System.WeakReference<GameObject> foodObject = SceneManager.GetRandomFood();
+                System.WeakReference<GameObject> foodObject = SceneManager.GetClosestNonEmptyFood(transform.position);
                 if (foodObject.TryGetTarget(out iWantThisFood)) {
                     IWantThisFood = foodObject;
                 }
@@ -181,6 +179,11 @@ public class DoggoBehaviour : MonoBehaviour
             if (IWantThisToy != null && IWantThisToy.TryGetTarget(out iWantThisToy)) {
                 UpdateTarget(iWantThisToy.transform.position, 2.0f);
                 BarkHappy();
+                ToyBehaviour toy = null;
+                if (ImTouchingThisToy != null && ImTouchingThisToy.TryGetTarget(out toy)) {
+                    toy.ShootUpRandomDirection();
+                    ImTouchingThisToy = null;
+                }
             }
             else {
                 System.WeakReference<GameObject> toyObject = SceneManager.GetRandomToy();

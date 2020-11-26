@@ -30,14 +30,33 @@ public class SceneManager : MonoBehaviour
     }
 
     public static System.WeakReference<GameObject> GetRandomFood() {
-        GameObject[] toys = GameObject.FindGameObjectsWithTag("Food");
-        if (toys.Length > 0) {
-            return new System.WeakReference<GameObject>(toys[Random.Range(0, toys.Length)]);
+        GameObject[] food = GameObject.FindGameObjectsWithTag("Food");
+        if (food.Length > 0) {
+            return new System.WeakReference<GameObject>(food[Random.Range(0, food.Length)]);
         }
         else {
             return null;
         }
     }
+
+    public static System.WeakReference<GameObject> GetClosestNonEmptyFood(Vector3 point) {
+        GameObject[] food = GameObject.FindGameObjectsWithTag("Food");
+        float closestDistanceSqr = Mathf.Infinity;
+        int index = Random.Range(0, food.Length);
+        if (food.Length > 0) {
+            for (int i = 0; i < food.Length; i++) {
+                float distanceSqr = (point - food[i].transform.position).sqrMagnitude;
+                FoodBehaviour foodB = food[i].GetComponent<FoodBehaviour>();
+                if (foodB && distanceSqr < closestDistanceSqr && foodB.FoodAmount > 0.0f) {
+                    index = i;
+                    closestDistanceSqr = distanceSqr;
+                }
+            }
+            return new System.WeakReference<GameObject>(food[index]);
+        }
+        return null;
+    }
+
 
     public static System.WeakReference<GameObject> GetRandomDogExceptMe(GameObject me) {
         GameObject[] dogs = GameObject.FindGameObjectsWithTag("Dog");
@@ -55,6 +74,7 @@ public class SceneManager : MonoBehaviour
         }
     }
 
+    
     public void SpawnBark(Bark barkPrefab, Vector3 location, DoggoBehaviour barker) {
         Bark newBark = Instantiate<Bark>(barkPrefab, location, Quaternion.identity);
         newBark.barker = barker;

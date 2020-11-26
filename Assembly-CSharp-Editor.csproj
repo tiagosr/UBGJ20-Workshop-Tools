@@ -646,20 +646,20 @@
     <Reference Include="Unity.Rider.Editor">
       <HintPath>C:/Users/tiago/Projects/UBGJ20-Workshop-Tools/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/tiago/Projects/UBGJ20-Workshop-Tools/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.UI">
-      <HintPath>C:/Users/tiago/Projects/UBGJ20-Workshop-Tools/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
-    </Reference>
     <Reference Include="Siccity.GLTFUtility">
       <HintPath>C:/Users/tiago/Projects/UBGJ20-Workshop-Tools/Library/ScriptAssemblies/Siccity.GLTFUtility.dll</HintPath>
     </Reference>
     <Reference Include="Siccity.GLTFUtility.Editor">
       <HintPath>C:/Users/tiago/Projects/UBGJ20-Workshop-Tools/Library/ScriptAssemblies/Siccity.GLTFUtility.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>C:/Users/tiago/Projects/UBGJ20-Workshop-Tools/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+    </Reference>
     <Reference Include="Dracodec">
       <HintPath>C:/Users/tiago/Projects/UBGJ20-Workshop-Tools/Library/ScriptAssemblies/Dracodec.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>C:/Users/tiago/Projects/UBGJ20-Workshop-Tools/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
