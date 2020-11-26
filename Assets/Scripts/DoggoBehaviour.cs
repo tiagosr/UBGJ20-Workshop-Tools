@@ -32,7 +32,10 @@ public class DoggoBehaviour : MonoBehaviour
 
     void OnDrawGizmos() {
         Handles.Label(transform.TransformPoint(Vector3.up), internalState, SceneManager.Instance.dogHandlesStyle);
-        
+        GameObject toy = null;
+        if (IWantThisToy != null && IWantThisToy.TryGetTarget(out toy)) {
+            Gizmos.DrawLine(transform.position, toy.transform.position);
+        }
     }
 
     Vector3 currentTargetPos;
